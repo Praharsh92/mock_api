@@ -3,6 +3,7 @@ const express = require('express');
 const fs = require('fs');
 var cors = require('cors');
 // const multer = require('multer');
+const dataBase = require('./database')
 
 const app = express();
 const port = 8000;
@@ -39,10 +40,16 @@ app.use(express.urlencoded({
   extended: true
 }));
 app.use(cors({origin: 'http://localhost'}));
-
-app.get('/api_v1/users/login', (req, res) => {
-  res.json({});
+app.use(function(req, res, next) {
+  console.log(req.body);
+  next();
 });
+
+
+app.get('/api/users', dataBase.getUsers);
+app.post('/api/users', dataBase.createUser);
+app.post('/api/users/update', dataBase.updateUser);
+app.post('/api/users/delete', dataBase.deleteUser);
 
 
 app.listen(port, '0.0.0.0');
