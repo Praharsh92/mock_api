@@ -42,6 +42,7 @@ app.use(express.urlencoded({
 app.use(cors({origin: 'http://localhost'}));
 app.use(function(req, res, next) {
   console.log(req.body);
+  log.info("On - " + req.url + " : With body" + req.body);
   next();
 });
 
